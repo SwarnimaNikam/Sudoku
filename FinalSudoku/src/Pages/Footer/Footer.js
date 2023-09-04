@@ -1,13 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import "./Footer.css";
-import facebook from "../../images/facebook.png";
-import youtube from "../../images/youtube.png";
-import instagram from "../../images/instagram.png";
-import ios from "../../images/ios.svg";
-import playstore from "../../images/playstore.png";
-import fssai from "../../images/fssai.svg";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -25,8 +19,7 @@ export default function Footer() {
       <br />
       <div>
         <h6 className="info">
-          © 2022 Indian Gaming . All rights reserved. License Number:
-          45781256894512
+          © 2023 Sudoku-Game . All rights reserved. License Number: 123456789
         </h6>
       </div>
       <br />

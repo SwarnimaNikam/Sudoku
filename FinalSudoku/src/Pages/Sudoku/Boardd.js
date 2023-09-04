@@ -1,9 +1,7 @@
-
-
 /**
  * React component for the Footer Section.
  */
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 import "../../../src/Pages/Sudoku/Board.css";
 import { sudokuSolver, createRandomBoard, trimBoard } from "./sudoku";
 import Settings from "./Settings";
@@ -15,26 +13,24 @@ import React from "react";
 import "./Board.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
-import logo from "../../images/e.jpg"
-import axios from 'axios';
+import logo from "../../images/e.jpg";
+import axios from "axios";
 export default function Boardd() {
-    
   const [initialBoard, setInitialBoard] = useState(); //this is the original state board in object form, stored for resetting upon clear, this gets set upon creation of the board
   const [board, setBoard] = useState(); //this is the current updating board in obj form
   const [gameOn, setGameOn] = useState(false); //game has started - board has been created
-//whether you have won or not
+  //whether you have won or not
   const [mode, setMode] = useState("Easy"); //for toggling between coloring correct answers and not
   const [difficulty, setDifficulty] = useState(40); //user can select how many starting cells
   const [notesSetting, setNotesSetting] = useState(false); //toggle between inputting notes and not
-  const [winSec, setWinSec] = useState('');
-  const [winMin, setWinMin] = useState('');
-  const [player , setPlayer]=useState()
+  const [winSec, setWinSec] = useState("");
+  const [winMin, setWinMin] = useState("");
+  const [player, setPlayer] = useState();
   const [isFrozen, setIsFrozen] = useState(false);
 
   const [data, setData] = useState([]);
   //initialBoard doesn't need to be state bc it doesn't cause a rerender. It needs to udpate on a new game...
-//however it appears some other variables depend on it
-
+  //however it appears some other variables depend on it
 
   // const [theme, setTheme] = useLocalStorage("theme" ? "dark" : "light");
 
@@ -54,11 +50,9 @@ export default function Boardd() {
   // useEffect(() => {
   //   getEvents();
   // }, []);
-const upda=()=>
-{
-  navigate("/update");
-}
-  
+  const upda = () => {
+    navigate("/update");
+  };
 
   const resetTimer = () => {
     setWinMin(0);
@@ -94,37 +88,37 @@ const upda=()=>
   const [win, setWin] = useState(false);
   //check for win every time board changes
 
-  const getPlayerId=()=>{
-    const playerId=sessionStorage.getItem('currentplayerId')
-    return playerId
-  }
+  const getPlayerId = () => {
+    const playerId = sessionStorage.getItem("currentplayerId");
+    return playerId;
+  };
   const winstatus = () => {
-    
-    const play=getPlayerId()
-        const body = {
-            winMin,winSec,player:{playerId:play}
-        }
-        const url = `http://localhost:7071/winstatus/save`
-        axios.post(url, body).then((response) => {
-            const result = response.data
-            if (result.status == undefined) {
-               console.log("value successfully applied")
-                
-            } else {
-              console.log("something happened")
-            }
-        })
-    }
+    const play = getPlayerId();
+    const body = {
+      winMin,
+      winSec,
+      player: { playerId: play },
+    };
+    const url = `http://localhost:7071/winstatus/save`;
+    axios.post(url, body).then((response) => {
+      const result = response.data;
+      if (result.status == undefined) {
+        console.log("value successfully applied");
+      } else {
+        console.log("something happened");
+      }
+    });
+  };
 
   useEffect(() => {
     if (!gameOn) return;
 
     if (checkWin()) {
       setWin(true);
-     console.log(win.status)
-     setWinMin(winMin);
-     setWinSec(winSec);
-      endGame(); 
+      console.log(win.status);
+      setWinMin(winMin);
+      setWinSec(winSec);
+      endGame();
       winstatus();
     }
     // eslint-disable-next-line
@@ -375,39 +369,37 @@ const upda=()=>
 
   // Define your functions for opening and closing the signup and signin modals
   const [signUpModal, setSignUpModal] = useState(false);
-  const openSignUp = () =>{ 
-    navigate("/Signup")
-  setSignUpModal(true);
-  }
+  const openSignUp = () => {
+    navigate("/Signup");
+    setSignUpModal(true);
+  };
   const closeSignUp = () => setSignUpModal(false);
 
   const [signInModal, setSignInModal] = useState(false);
-  const openSignIn = () =>{
-
-
-    navigate("/signup")
+  const openSignIn = () => {
+    navigate("/signup");
     setSignInModal(true);
+  };
 
-  }
-  
-   const closeSignIn = () => setSignInModal(false);
+  const closeSignIn = () => setSignInModal(false);
 
   const toggleForm = (formName) => {
     setCurrentForm(formName);
   };
-  const ask=()=>
-  {
-    toast.error("Logging Off")
-    navigate("/")
-  }
+  const ask = () => {
+    toast.error("Logging Off");
+    navigate("/");
+  };
   return (
-    
     <div className="containe">
-       <div className="row shadow sticky-top">
-        <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "black" }}>
+      <div className="row shadow sticky-top">
+        <nav
+          className="navbar navbar-expand-lg"
+          style={{ backgroundColor: "black" }}
+        >
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              <img src={logo}  alt="" id="headerlogoProfile" />
+              <img src={logo} alt="" id="headerlogoProfile" />
             </a>
             <button
               className="navbar-toggler"
@@ -419,69 +411,114 @@ const upda=()=>
               aria-label="Toggle navigation"
               style={{ backgroundColor: "white" }}
             >
-              <span className="navbar-toggler-icon" style={{ backgroundColor: "grey" }}></span>
+              <span
+                className="navbar-toggler-icon"
+                style={{ backgroundColor: "grey" }}
+              ></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page"  onClick={() => ask()} id="headerBtn">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    onClick={() => ask()}
+                    id="headerBtn"
+                  >
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" onClick={() => navigate("/howtoplay")} id="headerBtn">
-                    How To Play
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    onClick={() => navigate("/howtoplay")}
+                    id="headerBtn"
+                  >
+                    How To Play?
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" onClick={() => navigate("/sudokufacts")} id="headerBtn">
-                    SudokuFacts
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    onClick={() => navigate("/sudokufacts")}
+                    id="headerBtn"
+                  >
+                    Sudoku Facts
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" onClick={() => navigate("/feedback")} id="headerBtn">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    onClick={() => navigate("/feedback")}
+                    id="headerBtn"
+                  >
                     Feedback
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" onClick={() => navigate("/winstatus")} id="headerBtn">
-                    WinStatus
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    onClick={() => navigate("/winstatus")}
+                    id="headerBtn"
+                  >
+                    Win-Status
                   </a>
                 </li>
                 {/* <li className="nav-item">
                  <button className="btn btn-primary">Light</button>
                 </li> */}
-              
+
                 {/* Add more menu items here */}
               </ul>
               <div className="">
                 <motion.button
                   className="btn btn-primary SignButtn  mx-3 float-start"
-                  whileHover={{ backgroundColor: "rgb(220, 222, 224)", color: "black" }}
-                  whileTap={{ backgroundColor: "rgb(220, 222, 224)", color: "black" }}
+                  whileHover={{
+                    backgroundColor: "rgb(220, 222, 224)",
+                    color: "black",
+                  }}
+                  whileTap={{
+                    backgroundColor: "rgb(220, 222, 224)",
+                    color: "black",
+                  }}
                   onClick={() => ask()}
                 >
-                 LogOut
+                  LogOut
                 </motion.button>
               </div>
               <div className="">
                 <motion.button
                   className="btn btn-primary SignButto float-start"
-                  whileHover={{ backgroundColor: "rgb(220, 222, 224)", color: "black" }}
-                  whileTap={{ backgroundColor: "rgb(220, 222, 224)", color: "black" }}
+                  whileHover={{
+                    backgroundColor: "rgb(220, 222, 224)",
+                    color: "black",
+                  }}
+                  whileTap={{
+                    backgroundColor: "rgb(220, 222, 224)",
+                    color: "black",
+                  }}
                   onClick={() => upda()}
                 >
-                 Update Profile
+                  Update Profile
                 </motion.button>
               </div>
-              
             </div>
           </div>
         </nav>
       </div>
-        <center><h1 className="my-10 py-1">SUDOKU</h1></center><br/>
+      <center>
+        <h1 className="my-10 py-1">SUDOKU</h1>
+      </center>
+      <br />
 
-        <Settings
+      <Settings
         // switchTheme={switchTheme}
         difficulty={difficulty}
         handleSliderChange={handleSliderChange}
@@ -509,19 +546,20 @@ const upda=()=>
           getHint={getHint}
         />
       )}
-<div className="containe">
-      
-      {win && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          numberOfPieces={200}
-          recycle={false}
-          confettiSource={{ x: window.innerWidth / 2, y: window.innerHeight / 2 }}
-        />
-      )}
+      <div className="containe">
+        {win && (
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            numberOfPieces={200}
+            recycle={false}
+            confettiSource={{
+              x: window.innerWidth / 2,
+              y: window.innerHeight / 2,
+            }}
+          />
+        )}
+      </div>
     </div>
-    </div>
-   
   );
 }
